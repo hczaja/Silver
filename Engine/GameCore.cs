@@ -1,10 +1,18 @@
-﻿using SFML.Graphics;
+﻿using Core.Boards;
+using SFML.Graphics;
 using SFML.Window;
 
 namespace Engine;
 
 internal class GameCore
 {
+    public readonly Board _board;
+
+    public GameCore()
+    {
+        _board = new Board(BoardSize.Small);
+    }
+
     internal void KeyPressed(object? sender, KeyEventArgs e)
     {
         throw new NotImplementedException();
@@ -25,9 +33,9 @@ internal class GameCore
         throw new NotImplementedException();
     }
 
-    internal void Render(RenderTarget window)
+    internal void Render(RenderTarget target)
     {
-        
+        _board.DrawBy(target);
     }
 
     internal void Update()
