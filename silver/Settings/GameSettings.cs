@@ -1,4 +1,4 @@
-﻿namespace Silver.Settings;
+﻿namespace Engine.Settings;
 
 internal class GameSettings
 {

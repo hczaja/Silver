@@ -1,7 +1,7 @@
 ﻿using SFML.Graphics;
-using Silver.Settings;
+using Engine.Settings;
 
-namespace Silver;
+namespace Engine;
 
 internal class GameWindow
 {

@@ -1,6 +1,6 @@
-﻿using Silver.Time;
+﻿using Engine.Time;
 
-namespace Silver;
+namespace Engine;
 
 internal class GameEngine
 {
