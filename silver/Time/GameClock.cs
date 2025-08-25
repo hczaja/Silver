@@ -1,7 +1,7 @@
 ﻿using SFML.System;
-using Silver.Settings;
+using Engine.Settings;
 
-namespace Silver.Time;
+namespace Engine.Time;
 
 internal class GameClock : Clock
 {

@@ -1,7 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
 
-namespace Silver;
+namespace Engine;
 
 internal class GameCore
 {
@@ -27,11 +27,11 @@ internal class GameCore
 
     internal void Render(RenderTarget window)
     {
-        throw new NotImplementedException();
+        
     }
 
     internal void Update()
     {
-        throw new NotImplementedException();
+        
     }
 }

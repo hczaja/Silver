@@ -1,6 +1,6 @@
 ﻿using SFML.Window;
 
-namespace Silver.Settings;
+namespace Engine.Settings;
 
 internal class VideoStandard
 {
