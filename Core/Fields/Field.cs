@@ -6,7 +6,7 @@ namespace Core.Fields;
 
 public class Field : IDrawable
 {
-    const int Size = 32;
+    internal const int Size = 32;
     private readonly RectangleShape _shape;
 
     public Field(int col, int row)
@@ -14,13 +14,7 @@ public class Field : IDrawable
         XPos = col;
         YPos = row;
 
-        _shape = new RectangleShape();
-        _shape.Position = new Vector2f(XPos * Size, YPos * Size);
-        _shape.Size = new Vector2f(Size, Size);
-        _shape.FillColor = Color.Black;
-
-        _shape.OutlineThickness = 1;
-        _shape.OutlineColor = Color.White;
+        _shape = new FieldShapeFactory().GetRectangleShape(col, row);
     }
 
     public int XPos { get; }
