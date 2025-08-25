@@ -1,4 +1,5 @@
-﻿using SFML.Window;
+﻿using SFML.Graphics;
+using SFML.Window;
 
 namespace Silver;
 
@@ -20,6 +21,16 @@ internal class GameCore
     }
 
     internal void MouseButtonReleased(object? sender, MouseButtonEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal void Render(RenderTarget window)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal void Update()
     {
         throw new NotImplementedException();
     }

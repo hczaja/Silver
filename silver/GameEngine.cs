@@ -1,5 +1,4 @@
-﻿using SFML.Window;
-using Silver.Time;
+﻿using Silver.Time;
 
 namespace Silver;
 
@@ -7,10 +6,13 @@ internal class GameEngine
 {
     private readonly GameWindow _window;
     private readonly GameClock _clock;
+    private readonly GameCore _core;
 
     public GameEngine()
     {
-        _window = new GameWindow();
+        _core = new GameCore();
+        _window = new GameWindow(_core);
+
         _clock = new GameClock();
     }
 

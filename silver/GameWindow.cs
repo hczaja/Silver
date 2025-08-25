@@ -31,11 +31,11 @@ internal class GameWindow
 
     public void Display() => _window.Display();
 
-    public void Draw() { } // _core.Render(_window);
+    public void Draw() => _core.Render(_window);
 
     public bool IsOpen() => _window.IsOpen;
 
-    public void Update() { } // => _core.Update();
+    public void Update() => _core.Update();
 
     private void Close() => _window.Close();
 }
