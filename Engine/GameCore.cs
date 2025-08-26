@@ -1,4 +1,7 @@
 ﻿using Core.Boards;
+using Core.Fields;
+using Core.Interfaces;
+using Core.Tools;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -10,7 +13,11 @@ internal class GameCore
 
     public GameCore()
     {
-        _board = new Board(BoardSize.Small);
+        ILogger logger = new ConsoleLogger();
+        _board = new Board(
+            logger,
+            new FieldFactory(logger),
+            BoardSize.Small);
     }
 
     internal void KeyPressed(object? sender, KeyEventArgs e)

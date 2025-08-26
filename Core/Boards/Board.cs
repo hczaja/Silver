@@ -6,18 +6,25 @@ namespace Core.Boards;
 
 public class Board : IDrawable
 {
+    private readonly ILogger _logger;
+    private readonly FieldFactory _fieldFactory;
+
     public readonly Field[,] _fields;
 
-    public Board(BoardSize boardSize)
+    public Board(ILogger logger, FieldFactory fieldFactory, BoardSize boardSize)
     {
+        _logger = logger;
+        _fieldFactory = fieldFactory;
+
         int size = (int)boardSize;
 
         _fields = new Field[size, size];
-        for (int i = 0; i < size; i++)
+
+        for (int col = 0; col < size; col++)
         {
-            for (int j = 0; j < size; j++)
+            for (int row = 0; row < size; row++)
             {
-                _fields[i, j] = new Field(i, j);
+                _fields[col, row] = _fieldFactory.CreateField(col, row);
             }
         }
     }
@@ -26,11 +33,11 @@ public class Board : IDrawable
     {
         int size = _fields.GetLength(0);
 
-        for (int i = 0; i < size; i++)
+        for (int col = 0; col < size; col++)
         {
-            for (int j = 0; j < size; j++)
+            for (int row = 0; row < size; row++)
             {
-                _fields[i,j].DrawBy(target);
+                _fields[col,row].DrawBy(target);
             }
         }
     }
