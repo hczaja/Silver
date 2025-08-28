@@ -1,26 +1,32 @@
 ﻿using Core.Interfaces;
+using Core.Tools;
 using SFML.Graphics;
+using SFML.System;
 
 namespace Core.Fields;
 
 public class FieldFactory
 {
     private readonly ILogger _logger;
-    private readonly FieldShapeFactory _shapeFactory;
+    private readonly ResourceLoader _resourceLoader;
 
     public FieldFactory(ILogger logger)
     {
         _logger = logger;
-        _shapeFactory = new FieldShapeFactory();
+        _resourceLoader = new ResourceLoader();
     }
 
     public Field CreateField(int x, int y)
     {
-        _logger.LogDebug($"{nameof(FieldFactory)} - {nameof(CreateField)} at {x}, {y}");
-        
-        RectangleShape shape = _shapeFactory.GetRectangleShape(x, y);
+        int r = new Random().Next(0, 3);
+        FieldType fieldType = (FieldType)Enum.GetValues(typeof(FieldType)).GetValue(r);
 
-        Field field = new Field(x, y, FieldType.Grass, shape);
+        _logger.LogDebug($"{nameof(FieldFactory)} - {nameof(CreateField)} at {x}, {y} - {fieldType}");
+
+        Sprite sprite = _resourceLoader.GetFieldSprite(fieldType);
+        sprite.Position = new Vector2f(x * Field.Size, y * Field.Size);
+
+        Field field = new Field(x, y, fieldType, sprite);
 
         return field;
     }

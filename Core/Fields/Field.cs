@@ -6,13 +6,13 @@ namespace Core.Fields;
 public class Field : IDrawable
 {
     internal const int Size = 32;
-    private readonly RectangleShape _shape;
+    private readonly Sprite _sprite;
 
-    public Field(int col, int row, FieldType type, RectangleShape shape)
+    public Field(int col, int row, FieldType type, Sprite sprite)
     {
         XPos = col;
         YPos = row;
-        _shape = shape;
+        _sprite = sprite;
     }
 
     public int XPos { get; }
@@ -25,6 +25,6 @@ public class Field : IDrawable
 
     public void DrawBy(RenderTarget target)
     {
-        target.Draw(_shape);
+        target.Draw(_sprite);
     }
 }
