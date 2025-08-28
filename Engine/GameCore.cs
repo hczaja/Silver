@@ -1,8 +1,7 @@
 ﻿using Core.Boards;
 using Core.Fields;
 using Core.Interfaces;
-using Core.Logs;
-using Core.Tools;
+using Core.Loggers;
 using SFML.Graphics;
 using SFML.Window;
 
