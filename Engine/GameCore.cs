@@ -29,10 +29,6 @@ internal class GameCore : IKeyboardHandler, IMouseHandler
         };
 
         State = new GameState(gameSettings, Logger);
-
-        // initialize empty EH before sending an event
-        UpdateViewEventHandler += (_, _) => { };
-        State.Handle(new SetUpCameraEvent(UpdateViewEventHandler));
     }
 
     public void KeyPressed(object? sender, KeyEventArgs e) 

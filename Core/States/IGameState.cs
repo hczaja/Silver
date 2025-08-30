@@ -7,7 +7,7 @@ public interface IGameState :
     IEventHandler<KeyboardEvent>, 
     IEventHandler<MouseEvent>,
     IEventHandler<SetUpCameraEvent>,
-    IEventHandler<CameraMovedEvent>,
+    IEventHandler<MoveCameraEvent>,
     IDrawable, 
     IUpdatetable
 { }

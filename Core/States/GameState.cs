@@ -23,7 +23,7 @@ public class GameState : IGameState
         _settings = settings;
         _logger = logger;
 
-        _camera = new CameraComponent(settings);
+        _camera = new CameraComponent(logger, settings, this);
 
         Board = new Board(
             new FieldFactory(logger),
@@ -34,24 +34,29 @@ public class GameState : IGameState
 
     public void Update()
     {
-
+        _camera.Update();
     }
 
     public void Handle(KeyboardEvent @event)
     {
+        _logger.LogTrace($"{nameof(KeyboardEvent)}: {@event}.");
     }
 
     public void Handle(MouseEvent @event)
     {
+        _logger.LogTrace($"{nameof(MouseEvent)}: {@event}.");
+        _camera.Handle(@event);
     }
 
     public void Handle(SetUpCameraEvent @event)
     {
+        _logger.LogTrace($"{nameof(SetUpCameraEvent)}: {@event}.");
         ViewHandler = @event.CameraEventHandler;
     }
 
-    public void Handle(CameraMovedEvent @event)
+    public void Handle(MoveCameraEvent @event)
     {
+        _logger.LogTrace($"{nameof(MoveCameraEvent)}: {@event}.");
         ViewHandler.Invoke(this, new UpdateViewEventArgs() { View = _camera.View });
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Core.Events;
 
-public class UpdateViewEventArgs
+public record UpdateViewEventArgs
 {
     public View View { get; set; }
 }

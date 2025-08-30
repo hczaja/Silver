@@ -1,6 +1,6 @@
 ﻿namespace Core.Events;
 
-public class SetUpCameraEvent
+public record SetUpCameraEvent
 {
     public EventHandler<UpdateViewEventArgs> CameraEventHandler { get; set; }
 

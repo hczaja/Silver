@@ -1,4 +1,6 @@
-﻿using SFML.Graphics;
+﻿using Core.Events;
+using Core.Interfaces;
+using SFML.Graphics;
 
 namespace Engine;
 
@@ -6,10 +8,13 @@ internal class GameWindow
 {
     private readonly GameCore _core;
     private readonly RenderWindow _window;
+    private readonly ILogger _logger;
 
     public GameWindow(GameCore core)
     {
         _core = core;
+        _logger = _core.Logger;
+
         _window = new RenderWindow(
             core.ExternalSettings.Standard.Mode,
             core.ExternalSettings.Title);
@@ -24,13 +29,12 @@ internal class GameWindow
         _window.MouseButtonReleased += _core.MouseButtonReleased;
         _window.MouseMoved += _core.MouseMoved;
 
+        // Setup camera
         _core.UpdateViewEventHandler += (_, args) => UpdateView(args.View);
+        _core.State.Handle(new SetUpCameraEvent(_core.UpdateViewEventHandler));
     }
 
-    private void UpdateView(View view)
-    {
-        _window.SetView(view);
-    }
+    private void UpdateView(View view) => _window.SetView(view);
 
     public void Clear() => _window.Clear();
 
