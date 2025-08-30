@@ -13,7 +13,7 @@ internal class GameEngine
         _core = new GameCore();
         _window = new GameWindow(_core);
 
-        _clock = new GameClock();
+        _clock = new GameClock(_core.ExternalSettings);
     }
 
     public void Run()

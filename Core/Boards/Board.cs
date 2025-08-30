@@ -6,14 +6,13 @@ namespace Core.Boards;
 
 public class Board : IDrawable
 {
-    private readonly ILogger _logger;
+
     private readonly FieldFactory _fieldFactory;
 
     public readonly Field[,] _fields;
 
-    public Board(ILogger logger, FieldFactory fieldFactory, BoardSize boardSize)
+    public Board(FieldFactory fieldFactory, BoardSize boardSize)
     {
-        _logger = logger;
         _fieldFactory = fieldFactory;
 
         int size = (int)boardSize;

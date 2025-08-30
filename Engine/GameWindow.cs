@@ -1,5 +1,4 @@
 ﻿using SFML.Graphics;
-using Engine.Settings;
 
 namespace Engine;
 
@@ -12,10 +11,10 @@ internal class GameWindow
     {
         _core = core;
         _window = new RenderWindow(
-            VideoStandard.WXGA.Mode,
-            GameSettings.Title);
+            core.ExternalSettings.Standard.Mode,
+            core.ExternalSettings.Title);
 
-        _window.SetKeyRepeatEnabled(enable: GameSettings.EnableKeyRepeat);
+        _window.SetKeyRepeatEnabled(enable: core.ExternalSettings.EnableKeyRepeat);
 
         _window.Closed += (_, _) => Close();
 
@@ -23,6 +22,14 @@ internal class GameWindow
         _window.KeyReleased += _core.KeyReleased;
         _window.MouseButtonPressed += _core.MouseButtonPressed;
         _window.MouseButtonReleased += _core.MouseButtonReleased;
+        _window.MouseMoved += _core.MouseMoved;
+
+        _core.UpdateViewEventHandler += (_, args) => UpdateView(args.View);
+    }
+
+    private void UpdateView(View view)
+    {
+        _window.SetView(view);
     }
 
     public void Clear() => _window.Clear();

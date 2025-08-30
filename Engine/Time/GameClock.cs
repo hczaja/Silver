@@ -11,9 +11,9 @@ internal class GameClock : Clock
 
     private readonly float _timeBeforeUpdate;
 
-    public GameClock()
+    public GameClock(ExternalSettings externalSettings)
     {
-        _timeBeforeUpdate = 1f / GameSettings.FPS;
+        _timeBeforeUpdate = 1f / externalSettings.FPS;
     }
 
     public bool TryUpdate()

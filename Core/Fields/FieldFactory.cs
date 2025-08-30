@@ -2,6 +2,7 @@
 using Core.Tools;
 using SFML.Graphics;
 using SFML.System;
+using System.Security.Cryptography;
 
 namespace Core.Fields;
 
@@ -18,7 +19,7 @@ public class FieldFactory
 
     public Field CreateField(int x, int y)
     {
-        int r = new Random().Next(0, 3);
+        int r = RandomNumberGenerator.GetInt32(3);
         FieldType fieldType = (FieldType)Enum.GetValues(typeof(FieldType)).GetValue(r);
 
         _logger.LogDebug($"{nameof(FieldFactory)} - {nameof(CreateField)} at {x}, {y} - {fieldType}");
