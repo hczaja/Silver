@@ -13,6 +13,7 @@ public class CameraComponent : ICamera
     private readonly ILogger _logger;
     private readonly ISettings _settings;
 
+    public Vector2f CameraOffset { get; private set; }
     public Vector2f MousePosition { get; private set; }
     public View View { get; }
 
@@ -40,8 +41,9 @@ public class CameraComponent : ICamera
         if (isDragging)
         {
             Vector2f moveOffset = GetMoveOffset(MousePosition);
+            CameraOffset += moveOffset;
 
-            _logger.LogTrace($"Moving the camera by {moveOffset}.");
+            _logger.LogInfo($"Moving the camera by {moveOffset}.");
             View.Move(moveOffset);
 
             _cameraHolder.Handle(new MoveCameraEvent());
@@ -57,6 +59,7 @@ public class CameraComponent : ICamera
     {
         isDragging = false;
     }
+
     public void Handle(MouseEvent @event)
     {
         if (!isDragging)
@@ -64,7 +67,7 @@ public class CameraComponent : ICamera
             if (@event.Button == Mouse.Button.Right
                 && @event.Type == MouseEventType.ButtonPressed)
             {
-                _logger.LogDebug("Dragging the camera.");
+                _logger.LogInfo("Dragging the camera.");
 
                 MousePosition = new Vector2f(@event.X, @event.Y);
                 StartDragging();
@@ -76,7 +79,7 @@ public class CameraComponent : ICamera
         if (@event.Button == Mouse.Button.Right
             && @event.Type == MouseEventType.ButtonReleased)
         {
-            _logger.LogDebug("Dropping the camera.");
+            _logger.LogInfo("Dropping the camera.");
 
             StopDragging();
         }

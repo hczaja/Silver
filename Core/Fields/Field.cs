@@ -6,12 +6,14 @@ using SFML.System;
 
 namespace Core.Fields;
 
-public class Field : IDrawable, ICollidable
+public class Field : IDrawable, ICollidable, ITargetable
 {
     internal const int Size = 32;
     
     private readonly Sprite _sprite;
     private readonly CollisionBox _collisionBox;
+
+    private bool isTargeted;
 
     public Field(int col, int row, FieldType type, Sprite sprite)
     {
@@ -32,13 +34,15 @@ public class Field : IDrawable, ICollidable
 
     public FieldType Type { get; }
 
+    public FloatRect TargetArea => _collisionBox.GetGlobalBounds();
+
     public bool IsForbidden() => Type == FieldType.Invalid || Type == FieldType.Water;
 
     public void DrawBy(RenderTarget target)
     {
         target.Draw(_sprite);
 
-        if (Toggles.ShowCollisions)
+        if (Toggles.ShowCollisions || isTargeted)
         {
             target.Draw(_collisionBox);
         }
@@ -48,4 +52,8 @@ public class Field : IDrawable, ICollidable
     {
         throw new NotImplementedException();
     }
+
+    internal void SetAsTarget(bool value) => isTargeted = value;
+
+    public override string? ToString() => $"[{XPos}, {YPos} | {Type}]";
 }

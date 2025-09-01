@@ -6,6 +6,7 @@ namespace Core.Loggers;
 public class ConsoleLogger : ILogger
 {
     private const string TRACE = "TRACE";
+    private const string INFO = "INFO";
     private const string DEBUG = "DEBUG";
     private const string ERROR = "ERROR";
     private const string WARNING = "WARNING";
@@ -22,15 +23,21 @@ public class ConsoleLogger : ILogger
             Log(DEBUG, ConsoleColor.Blue, message);
     }
 
-    public void LogWarning(string message)
+    public void LogInfo(string message)
     {
         if (Toggles.LogLevel <= 2)
+            Log(INFO, ConsoleColor.Blue, message);
+    }
+
+    public void LogWarning(string message)
+    {
+        if (Toggles.LogLevel <= 3)
             Log(WARNING, ConsoleColor.Yellow, message);
     }
 
     public void LogError(string message)
     {
-        if (Toggles.LogLevel <= 3)
+        if (Toggles.LogLevel <= 4)
             Log(ERROR, ConsoleColor.Red, message);
     }
 

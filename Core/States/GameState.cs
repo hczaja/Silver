@@ -14,6 +14,7 @@ public class GameState : IGameState
     public readonly ICamera _camera;
 
     public Board Board { get; }
+
     public EventHandler<UpdateViewEventArgs> ViewHandler { get; private set; }
 
     public GameState(
@@ -27,10 +28,15 @@ public class GameState : IGameState
 
         Board = new Board(
             new FieldFactory(logger),
-            BoardSize.Small);
+            BoardSize.Small,
+            _camera,
+            _logger);
     }
 
-    public void DrawBy(RenderTarget target) => Board.DrawBy(target);
+    public void DrawBy(RenderTarget render)
+    {
+        Board.DrawBy(render);
+    }
 
     public void Update()
     {
@@ -45,7 +51,9 @@ public class GameState : IGameState
     public void Handle(MouseEvent @event)
     {
         _logger.LogTrace($"{nameof(MouseEvent)}: {@event}.");
+
         _camera.Handle(@event);
+        Board.Handle(@event);
     }
 
     public void Handle(SetUpCameraEvent @event)
