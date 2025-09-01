@@ -43,7 +43,7 @@ public class CameraComponent : ICamera
             Vector2f moveOffset = GetMoveOffset(MousePosition);
             CameraOffset += moveOffset;
 
-            _logger.LogInfo($"Moving the camera by {moveOffset}.");
+            _logger.LogTrace($"Moving the camera by {moveOffset}.");
             View.Move(moveOffset);
 
             _cameraHolder.Handle(new MoveCameraEvent());

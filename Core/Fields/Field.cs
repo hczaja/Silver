@@ -21,6 +21,9 @@ public class Field : IDrawable, ICollidable, ITargetable
 
         XPos = col;
         YPos = row;
+
+        Type = type;
+
         _sprite = sprite;
         _collisionBox = new CollisionBox(
             new Vector2f(Size, Size), _sprite.Position, Id);
