@@ -3,6 +3,8 @@ using Core.Camera;
 using Core.Events;
 using Core.Fields;
 using Core.Interfaces;
+using Core.Tools;
+using Core.UI;
 using SFML.Graphics;
 
 namespace Core.States;
@@ -11,9 +13,11 @@ public class GameState : IGameState
 {
     public readonly ISettings _settings;
     public readonly ILogger _logger;
+
     public readonly ICamera _camera;
 
     public Board Board { get; }
+    public UIContainer UI { get; }
 
     public EventHandler<UpdateViewEventArgs> ViewHandler { get; private set; }
 
@@ -24,18 +28,26 @@ public class GameState : IGameState
         _settings = settings;
         _logger = logger;
 
-        _camera = new CameraComponent(logger, settings, this);
+        _camera = new CameraComponent(logger, settings);
 
         Board = new Board(
             new FieldFactory(logger),
             BoardSize.Small,
             _camera,
             _logger);
+
+        UI = new UIContainer(
+            _logger,
+            _settings);
     }
 
     public void DrawBy(RenderTarget render)
     {
+        render.SetView(_camera.View);
         Board.DrawBy(render);
+
+        render.SetView(UI.View);
+        UI.DrawBy(render);
     }
 
     public void Update()
@@ -53,18 +65,8 @@ public class GameState : IGameState
         _logger.LogTrace($"{nameof(MouseEvent)}: {@event}.");
 
         _camera.Handle(@event);
+
         Board.Handle(@event);
-    }
-
-    public void Handle(SetUpCameraEvent @event)
-    {
-        _logger.LogTrace($"{nameof(SetUpCameraEvent)}: {@event}.");
-        ViewHandler = @event.CameraEventHandler;
-    }
-
-    public void Handle(MoveCameraEvent @event)
-    {
-        _logger.LogTrace($"{nameof(MoveCameraEvent)}: {@event}.");
-        ViewHandler.Invoke(this, new UpdateViewEventArgs() { View = _camera.View });
+        UI.Handle(@event);
     }
 }

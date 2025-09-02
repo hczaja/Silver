@@ -28,13 +28,7 @@ internal class GameWindow
         _window.MouseButtonPressed += _core.MouseButtonPressed;
         _window.MouseButtonReleased += _core.MouseButtonReleased;
         _window.MouseMoved += _core.MouseMoved;
-
-        // Setup camera
-        _core.UpdateViewEventHandler += (_, args) => UpdateView(args.View);
-        _core.State.Handle(new SetUpCameraEvent(_core.UpdateViewEventHandler));
     }
-
-    private void UpdateView(View view) => _window.SetView(view);
 
     public void Clear() => _window.Clear();
 

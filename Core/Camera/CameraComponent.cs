@@ -9,7 +9,6 @@ namespace Core.Camera;
 
 public class CameraComponent : ICamera
 {
-    private readonly IEventHandler<MoveCameraEvent> _cameraHolder;
     private readonly ILogger _logger;
     private readonly ISettings _settings;
 
@@ -20,17 +19,15 @@ public class CameraComponent : ICamera
     private bool isDragging = false;
     private float cameraSpeed = 8f;
 
-    public CameraComponent(ILogger logger, ISettings settings, IEventHandler<MoveCameraEvent> cameraHolder)
+    public CameraComponent(ILogger logger, ISettings settings)
     {
         _logger = logger;
         _settings = settings;
 
-        _cameraHolder = cameraHolder;
-
         View = new View(
             new FloatRect(
-                0,
-                0,
+                0f,
+                0f,
                 settings.WindowWidth,
                 settings.WindowHeight
             ));
@@ -45,8 +42,6 @@ public class CameraComponent : ICamera
 
             _logger.LogTrace($"Moving the camera by {moveOffset}.");
             View.Move(moveOffset);
-
-            _cameraHolder.Handle(new MoveCameraEvent());
         }
     }
 
@@ -90,6 +85,6 @@ public class CameraComponent : ICamera
     private Vector2f GetMoveOffset(Vector2f mousePosition)
     {
         Vector2f center = new Vector2f(_settings.WindowWidth / 2f, _settings.WindowHeight / 2f);
-        return (mousePosition - View.Center).Normalized() * cameraSpeed;
+        return (mousePosition - center).Normalized() * cameraSpeed;
     }
 }

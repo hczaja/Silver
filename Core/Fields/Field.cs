@@ -37,6 +37,8 @@ public class Field : IDrawable, ICollidable, ITargetable
 
     public FieldType Type { get; }
 
+    //public bool HasFog { get; private set; }
+
     public FloatRect TargetArea => _collisionBox.GetGlobalBounds();
 
     public bool IsForbidden() => Type == FieldType.Invalid || Type == FieldType.Water;
