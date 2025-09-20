@@ -5,17 +5,15 @@ using SFML.System;
 
 namespace Core.UI;
 
-public class PlayerStatsBar : IPanel
+public class OptionsBar : IPanel
 {
     private readonly ISettings _settings;
 
     private RectangleShape shape;
 
-    public PlayerStatsBar(ISettings settings, IPanel referencePanel)
+    public OptionsBar(ISettings settings)
     {
         _settings = settings;
-
-        Position = referencePanel.Position + new Vector2f(referencePanel.Size.X + settings.HorizontalOffset, 0f);
 
         shape = new RectangleShape()
         {
@@ -27,9 +25,10 @@ public class PlayerStatsBar : IPanel
         };
     }
 
-    public Vector2f Position { get; private set; }
 
-    public Vector2f Size => new Vector2f(_settings.MinimumWidthUnit * 11f, _settings.MinimumHeightUnit / 2f);
+    public Vector2f Position => new Vector2f(_settings.WindowWidth - _settings.MinimumWidthUnit * 3f - _settings.HorizontalOffset, _settings.VerticalOffset * 2f);
+
+    public Vector2f Size => new Vector2f(_settings.MinimumWidthUnit * 3f, _settings.MinimumHeightUnit / 2f);
 
     public void DrawBy(RenderTarget render)
     {
@@ -38,6 +37,6 @@ public class PlayerStatsBar : IPanel
 
     public void Handle(MouseEvent @event)
     {
-
+        throw new NotImplementedException();
     }
 }

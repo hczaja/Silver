@@ -2,6 +2,7 @@
 using Core.Extensions;
 using Core.Fields;
 using Core.Interfaces;
+using Core.Units;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -12,13 +13,20 @@ public class Board : IDrawable, IEventHandler<MouseEvent>
     private readonly ICamera _camera;
     private readonly ILogger _logger;
     private readonly FieldFactory _fieldFactory;
+    private readonly UnitFactory _unitFactory;
 
     public readonly Field[,] _fields;
     private Field _targetField = null;
 
-    public Board(FieldFactory fieldFactory, BoardSize boardSize, ICamera camera, ILogger logger)
+    public Board(
+        FieldFactory fieldFactory,
+        UnitFactory unitFactory,
+        BoardSize boardSize,
+        ICamera camera,
+        ILogger logger)
     {
         _fieldFactory = fieldFactory;
+        _unitFactory = unitFactory;
 
         int size = (int)boardSize;
 
@@ -31,6 +39,13 @@ public class Board : IDrawable, IEventHandler<MouseEvent>
                 _fields[col, row] = _fieldFactory.CreateField(col, row);
             }
         }
+
+        var startingField = _fields[2, 2];
+        var swordsman = _unitFactory.CreateSwordsman(
+            startingField.XPos,
+            startingField.YPos, 
+            0);
+        startingField.Unit = swordsman;
 
         _camera = camera;
         _logger = logger;

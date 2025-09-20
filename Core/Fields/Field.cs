@@ -1,6 +1,7 @@
 ﻿using Core.Collisions;
 using Core.Interfaces;
 using Core.Settings;
+using Core.Units;
 using SFML.Graphics;
 using SFML.System;
 
@@ -14,6 +15,8 @@ public class Field : IDrawable, ICollidable, ITargetable
     private readonly CollisionBox _collisionBox;
 
     private bool isTargeted;
+
+    public Unit Unit { get; set; }
 
     public Field(int col, int row, FieldType type, Sprite sprite)
     {
@@ -43,13 +46,18 @@ public class Field : IDrawable, ICollidable, ITargetable
 
     public bool IsForbidden() => Type == FieldType.Invalid || Type == FieldType.Water;
 
-    public void DrawBy(RenderTarget target)
+    public void DrawBy(RenderTarget render)
     {
-        target.Draw(_sprite);
+        render.Draw(_sprite);
+
+        if (Unit != null)
+        {
+            Unit.DrawBy(render);
+        }
 
         if (Toggles.ShowCollisions || isTargeted)
         {
-            target.Draw(_collisionBox);
+            render.Draw(_collisionBox);
         }
     }
 

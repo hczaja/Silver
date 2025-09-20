@@ -13,4 +13,6 @@ public class GameSettings : ISettings
     public uint MinimumHeightUnit => WindowHeight / 16;
 
     public uint HorizontalOffset => MinimumWidthUnit / 8;
+
+    public uint VerticalOffset => MinimumHeightUnit / 8;
 }

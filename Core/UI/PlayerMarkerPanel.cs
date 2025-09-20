@@ -25,7 +25,7 @@ public class PlayerMarkerPanel : IPanel
         };
     }
 
-    public Vector2f Position => new Vector2f(_settings.HorizontalOffset, 0f);
+    public Vector2f Position => new Vector2f(_settings.HorizontalOffset, _settings.VerticalOffset * 2f);
     
     public Vector2f Size => new Vector2f(_settings.MinimumWidthUnit, _settings.MinimumHeightUnit * 2f);
 

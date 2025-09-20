@@ -1,4 +1,5 @@
 ﻿using Core.Fields;
+using Core.Units;
 using SFML.Graphics;
 
 namespace Core.Tools;
@@ -20,12 +21,27 @@ public class ResourceLoader
         { FieldType.Invalid, (3, 1) },
     };
 
+    private IDictionary<UnitType, int> unitSpritesheet = new Dictionary<UnitType, int>
+    {
+        { UnitType.Swordsman, 0 }
+    };
+
     public Sprite GetFieldSprite(FieldType type)
     {
         Texture spritesheet = GetTexture("Resources/Spritesheets/fields.png");
 
         (int col, int row) = fieldSpritesheet[type];
         Sprite sprite = GetSpriteFromTexture(spritesheet, Field.Size, col, row);
+
+        return sprite;
+    }
+
+    public Sprite GetUnitSprite(UnitType unitType, int playerId)
+    {
+        Texture spritesheet = GetTexture("Resources/Spritesheets/units.png");
+
+        int row = unitSpritesheet[unitType];
+        Sprite sprite = GetSpriteFromTexture(spritesheet, Field.Size, playerId, row);
 
         return sprite;
     }

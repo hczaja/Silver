@@ -3,8 +3,11 @@ using Core.Camera;
 using Core.Events;
 using Core.Fields;
 using Core.Interfaces;
+using Core.Players;
 using Core.Tools;
+using Core.Turns;
 using Core.UI;
+using Core.Units;
 using SFML.Graphics;
 
 namespace Core.States;
@@ -17,7 +20,11 @@ public class GameState : IGameState
     public readonly ICamera _camera;
 
     public Board Board { get; }
-    public UIContainer UI { get; }
+
+    public Player[] Players { get; }
+    public Turn CurrentTurn { get; }
+
+    //public UIContainer UI { get; }
 
     public EventHandler<UpdateViewEventArgs> ViewHandler { get; private set; }
 
@@ -32,13 +39,14 @@ public class GameState : IGameState
 
         Board = new Board(
             new FieldFactory(logger),
+            new UnitFactory(logger),
             BoardSize.Small,
             _camera,
             _logger);
 
-        UI = new UIContainer(
-            _logger,
-            _settings);
+        //UI = new UIContainer(
+        //    _logger,
+        //    _settings);
     }
 
     public void DrawBy(RenderTarget render)
@@ -46,8 +54,8 @@ public class GameState : IGameState
         render.SetView(_camera.View);
         Board.DrawBy(render);
 
-        render.SetView(UI.View);
-        UI.DrawBy(render);
+        //render.SetView(UI.View);
+        //UI.DrawBy(render);
     }
 
     public void Update()
@@ -65,8 +73,8 @@ public class GameState : IGameState
         _logger.LogTrace($"{nameof(MouseEvent)}: {@event}.");
 
         _camera.Handle(@event);
-
         Board.Handle(@event);
-        UI.Handle(@event);
+
+        //UI.Handle(@event);
     }
 }

@@ -13,8 +13,8 @@ public class UIContainer : IDrawable, IEventHandler<MouseEvent>
 
     private PlayerMarkerPanel playerMarkerPanel;
     private PlayerStatsBar playerStatsBar;
-    // PlayerMarkerPanel
-    // TaskQueuePanel
+    private TaskQueuePanel taskQueuePanel;
+    private OptionsBar optionsBar;
     // ConsolePanel
     // ResourcesBar
     // Stats
@@ -29,6 +29,8 @@ public class UIContainer : IDrawable, IEventHandler<MouseEvent>
 
         playerMarkerPanel = new PlayerMarkerPanel(settings);
         playerStatsBar = new PlayerStatsBar(settings, playerMarkerPanel);
+        taskQueuePanel = new TaskQueuePanel(settings, playerMarkerPanel);
+        optionsBar = new OptionsBar(settings);
 
         View = new View(
             new FloatRect(
@@ -43,6 +45,8 @@ public class UIContainer : IDrawable, IEventHandler<MouseEvent>
     {
         playerMarkerPanel.DrawBy(render);
         playerStatsBar.DrawBy(render);
+        taskQueuePanel.DrawBy(render);
+        optionsBar.DrawBy(render);
     }
 
     public void Handle(MouseEvent @event)

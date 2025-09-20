@@ -1,6 +1,4 @@
-﻿using System.Formats.Asn1;
-
-namespace Core.Interfaces;
+﻿namespace Core.Interfaces;
 
 public interface ISettings
 {
@@ -11,4 +9,5 @@ public interface ISettings
     uint MinimumHeightUnit { get; }
 
     uint HorizontalOffset { get; }
+    uint VerticalOffset { get; }
 }
