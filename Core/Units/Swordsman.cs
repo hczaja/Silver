@@ -1,7 +1,6 @@
-﻿using Core.Collisions;
-using Core.Statistics;
+﻿using Core.Statistics;
+using Core.Units.Actions;
 using SFML.Graphics;
-using SFML.System;
 
 namespace Core.Units
 {
@@ -10,7 +9,6 @@ namespace Core.Units
         internal const int Size = 32;
 
         private readonly Sprite _sprite;
-        private readonly CollisionBox _collisionBox;
 
         public Swordsman(int x, int y, Sprite sprite)
         {
@@ -18,13 +16,18 @@ namespace Core.Units
             YPos = y;
 
             _sprite = sprite;
-            _collisionBox = new CollisionBox(
-                new Vector2f(Size, Size), _sprite.Position, Id);
 
             Statistics = new UnitStatistics()
             {
                 BaseAttack = new Attack() { Value = 4 },
                 BaseDefense = new Defense() { Value = 3 },
+            };
+
+            Actions = new List<ActionType>()
+            {
+                ActionType.Move,
+                ActionType.Attack,
+                ActionType.Defense
             };
         }
 
@@ -38,10 +41,7 @@ namespace Core.Units
 
         public override UnitStatistics Statistics { get; }
 
-        public override bool CheckCollisions()
-        {
-            throw new NotImplementedException();
-        }
+        public override IEnumerable<ActionType> Actions { get; }
 
         public override void DrawBy(RenderTarget render)
         {

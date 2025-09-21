@@ -74,6 +74,8 @@ public class Board : IDrawable, IEventHandler<MouseEvent>
         if (@event.Button != Mouse.Button.Left)
             return;
 
+        _logger.LogDebug($"{nameof(MouseEvent)} - {@event}");
+
         int size = _fields.GetLength(0);
 
         for (int col = 0; col < size; col++)

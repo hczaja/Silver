@@ -3,5 +3,5 @@
 public static class Toggles
 {
     public static bool ShowCollisions = false;
-    public static int LogLevel = 2;
+    public static int LogLevel = 1;
 }

@@ -1,4 +1,4 @@
-﻿using Core.Collisions;
+﻿using Core.Extensions;
 using Core.Interfaces;
 using Core.Settings;
 using Core.Units;
@@ -7,12 +7,12 @@ using SFML.System;
 
 namespace Core.Fields;
 
-public class Field : IDrawable, ICollidable, ITargetable
+public class Field : IDrawable, ITargetable
 {
     internal const int Size = 32;
     
     private readonly Sprite _sprite;
-    private readonly CollisionBox _collisionBox;
+    private readonly FieldMarker _marker;
 
     private bool isTargeted;
 
@@ -28,8 +28,7 @@ public class Field : IDrawable, ICollidable, ITargetable
         Type = type;
 
         _sprite = sprite;
-        _collisionBox = new CollisionBox(
-            new Vector2f(Size, Size), _sprite.Position, Id);
+        _marker = new FieldMarker(sprite.Position);
     }
 
     public Guid Id { get; }
@@ -40,9 +39,7 @@ public class Field : IDrawable, ICollidable, ITargetable
 
     public FieldType Type { get; }
 
-    //public bool HasFog { get; private set; }
-
-    public FloatRect TargetArea => _collisionBox.GetGlobalBounds();
+    public FloatRect TargetArea => _sprite.GetGlobalBounds();
 
     public bool IsForbidden() => Type == FieldType.Invalid || Type == FieldType.Water;
 
@@ -55,9 +52,9 @@ public class Field : IDrawable, ICollidable, ITargetable
             Unit.DrawBy(render);
         }
 
-        if (Toggles.ShowCollisions || isTargeted)
+        if (isTargeted)
         {
-            render.Draw(_collisionBox);
+            render.Draw(_marker);
         }
     }
 

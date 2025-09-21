@@ -20,7 +20,7 @@ public class ConsoleLogger : ILogger
     public void LogDebug(string message)
     {
         if (Toggles.LogLevel <= 1)
-            Log(DEBUG, ConsoleColor.Blue, message);
+            Log(DEBUG, ConsoleColor.DarkGray, message);
     }
 
     public void LogInfo(string message)
