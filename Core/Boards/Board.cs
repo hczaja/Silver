@@ -81,7 +81,8 @@ public class Board : IDrawable, IEventHandler<MouseEvent>
             for (int row = 0; row < size; row++)
             {
                 Field field = _fields[col, row];
-                if (@event.IsMouseEventRaisedIn(field, _camera.CameraOffset))
+                if (@event.IsMouseEventRaisedIn(field, _camera.CameraOffset)
+                    && field != _targetField)
                 {
                     _logger.LogInfo($"{_targetField} is replaced with {field}");
 
