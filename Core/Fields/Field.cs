@@ -68,5 +68,18 @@ public class Field : IDrawable, ICollidable, ITargetable
 
     internal void SetAsTarget(bool value) => isTargeted = value;
 
-    public override string? ToString() => $"[{XPos}, {YPos} | {Type}]";
+    public override string? ToString()
+    {
+        string fieldInfo = $"{Type} [" +
+            $"X:{XPos}|" +
+            $"Y:{YPos}]";
+
+        if (Unit != null)
+        {
+            string unitInfo = $"[{Unit?.ToString()}]";
+            return $"{fieldInfo} ({unitInfo})";
+        }
+
+        return fieldInfo;
+    }
 }
